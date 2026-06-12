@@ -1,43 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Transparent Calculator</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>ScCalc — by Satwik</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="calculator">
-    <div class="theme-toggle">
-      <label class="switch">
-        <input type="checkbox" id="themeSwitch">
-        <span class="slider"></span>
-      </label>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="calculator" id="calculator">
+
+    <!-- Header -->
+    <div class="calc-header">
+      <div class="header-left">
+        <span class="calc-brand">SCI CALC</span>
+        <span class="mode-badge" id="modeBadge">DEG</span>
+      </div>
+      <div class="header-right">
+        <button class="icon-btn" id="degRadBtn" title="Toggle DEG / RAD" aria-label="Toggle degrees/radians">RAD</button>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+          <svg class="icon-sun"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+      </div>
     </div>
-    <div class="display" id="display">0</div>
-    <div class="buttons">
-      <button class="btn" onclick="clearDisplay()">C</button>
-      <button class="btn" onclick="toggleSign()">+/-</button>
-      <button class="btn" onclick="insert('%')">%</button>
-      <button class="btn" onclick="insert('/')">/</button>
-      <button class="btn" onclick="insert('7')">7</button>
-      <button class="btn" onclick="insert('8')">8</button>
-      <button class="btn" onclick="insert('9')">9</button>
-      <button class="btn" onclick="insert('*')">×</button>
-      <button class="btn" onclick="insert('4')">4</button>
-      <button class="btn" onclick="insert('5')">5</button>
-      <button class="btn" onclick="insert('6')">6</button>
-      <button class="btn" onclick="insert('-')">-</button>
-      <button class="btn" onclick="insert('1')">1</button>
-      <button class="btn" onclick="insert('2')">2</button>
-      <button class="btn" onclick="insert('3')">3</button>
-      <button class="btn" onclick="insert('+')">+</button>
-      <button class="btn zero" onclick="insert('0')">0</button>
-      <button class="btn" onclick="insert('.')">.</button>
-      <button class="btn" onclick="calculate()">=</button>
+
+    <!-- Display -->
+    <div class="display-area">
+      <div class="expression-line" id="expressionLine">&nbsp;</div>
+      <div class="display" id="display">0</div>
     </div>
+
+    <!-- Scientific grid -->
+    <div class="buttons sci-grid">
+
+      <button class="btn btn-sci" data-action="sci" data-fn="inv">INV</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="sin">sin</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="cos">cos</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="tan">tan</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="log">log</button>
+
+      <button class="btn btn-sci" data-action="sci" data-fn="pi">π</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="e_const">e</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="pow2">x²</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="pow3">x³</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="ln">ln</button>
+
+      <button class="btn btn-sci" data-action="sci" data-fn="sqrt">√</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="cbrt">∛</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="powN">xʸ</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="abs">|x|</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="fact">n!</button>
+
+      <button class="btn btn-sci" data-action="sci" data-fn="open">(</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="close">)</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="exp10">EXP</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="recip">1/x</button>
+      <button class="btn btn-sci" data-action="sci" data-fn="mod">mod</button>
+
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Standard grid -->
+    <div class="buttons std-grid">
+
+      <button class="btn btn-fn"  data-action="clear">AC</button>
+      <button class="btn btn-fn"  data-action="toggleSign">+/−</button>
+      <button class="btn btn-fn"  data-action="percent">%</button>
+      <button class="btn btn-fn"  data-action="backspace">⌫</button>
+      <button class="btn btn-op"  data-action="operator" data-value="÷">÷</button>
+
+      <button class="btn btn-num" data-action="digit" data-value="7">7</button>
+      <button class="btn btn-num" data-action="digit" data-value="8">8</button>
+      <button class="btn btn-num" data-action="digit" data-value="9">9</button>
+      <button class="btn btn-fn"  data-action="memStore">MS</button>
+      <button class="btn btn-op"  data-action="operator" data-value="×">×</button>
+
+      <button class="btn btn-num" data-action="digit" data-value="4">4</button>
+      <button class="btn btn-num" data-action="digit" data-value="5">5</button>
+      <button class="btn btn-num" data-action="digit" data-value="6">6</button>
+      <button class="btn btn-fn"  data-action="memRecall">MR</button>
+      <button class="btn btn-op"  data-action="operator" data-value="−">−</button>
+
+      <button class="btn btn-num" data-action="digit" data-value="1">1</button>
+      <button class="btn btn-num" data-action="digit" data-value="2">2</button>
+      <button class="btn btn-num" data-action="digit" data-value="3">3</button>
+      <button class="btn btn-fn"  data-action="memClear">MC</button>
+      <button class="btn btn-op"  data-action="operator" data-value="+">+</button>
+
+      <button class="btn btn-num btn-zero" data-action="digit" data-value="0">0</button>
+      <button class="btn btn-num" data-action="decimal">.</button>
+      <button class="btn btn-equals btn-eq-span" data-action="equals">=</button>
+
+    </div>
+
+    <footer class="calc-footer">Made by <strong>Satwik</strong></footer>
+
   </div>
-  <footer class="footer">Made by Satwik</footer>
+
   <script src="script.js"></script>
 </body>
 </html>
